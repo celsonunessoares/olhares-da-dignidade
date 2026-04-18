@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Manchete da Invisibilidade - UNINASSAU</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f4f7f6;
+            --accent-color: #1a365d;
+            --text-main: #2d3748;
+            --text-light: #4a5568;
+            --banner-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --legal-bg: #edf2f7;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Estrutura do Banner */
+        .banner {
+            max-width: 800px;
+            width: 100%;
+            background: var(--white);
+            position: relative;
+            box-shadow: var(--banner-shadow);
+            border-radius: 4px;
+            overflow: hidden;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Efeito de Ilhós (Furos do Banner) */
+        .banner::before,
+        .banner::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            width: 24px;
+            height: 24px;
+            background: #d1d5db;
+            border: 4px solid #9ca3af;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner::before {
+            left: 40px;
+        }
+
+        .banner::after {
+            right: 40px;
+        }
+
+        /* Conteúdo Interno */
+        .content {
+            padding: 80px 40px 40px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .university-brand {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Slider de Imagens */
+        .image-container {
+            width: 100%;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            min-height: 300px;
+            background: #eee;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: block;
+        }
+
+        .slide.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Indicadores do Slider */
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: var(--white);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Texto Principal */
+        .main-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+
+        .main-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Seção Jurídica */
+        .legal-section {
+            background-color: var(--legal-bg);
+            padding: 30px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+
+        .legal-section.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .legal-title {
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .legal-title span {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .legal-content ul {
+            list-style: none;
+        }
+
+        .legal-content li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .legal-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .legal-content strong {
+            display: block;
+            color: var(--text-main);
+            margin-top: 5px;
+        }
+
+        /* Rodapé / Créditos */
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .credits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .students-list h4,
+        .mentor h4 {
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Botão Voltar ao Topo */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-size: 1.2rem;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-5px);
+            background: #2c5282;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 15px;
+            }
+
+            .content {
+                padding: 60px 25px 30px 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .banner::before,
+            .banner::after {
+                width: 18px;
+                height: 18px;
+                top: 20px;
+            }
+
+            .credits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-text {
+                font-size: 1rem;
+            }
+
+            .banner::before {
+                left: 25px;
+            }
+
+            .banner::after {
+                right: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="banner">
+        <div class="content">
+            <header>
+                <div class="university-brand">"Olhares da Dignidade"</div>
+                <h1>A Manchete da Invisibilidade</h1>
+            </header>
+
+            <!-- Slider de Imagens -->
+            <div class="image-container">
+                <div class="slider-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="slide active">
+                        <img src="/img/homem_banco.png" alt="Pessoa em situação de rua lendo jornal">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide">
+                        <img src="/img/homem_banco2.jpg"
+                            alt="Segunda fotografia do projeto">
+                    </div>
+                </div>
+                <!-- Pontos indicativos -->
+                <div class="slider-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <section class="main-text">
+                <p>
+                    A fotografia, registrada na Avenida Frei Serafim em Teresina, retrata a face nua da desigualdade
+                    social e a vulnerabilidade da população em situação de rua. O cidadão, ao utilizar um banco público
+                    para o repouso e a leitura, evidencia a privação de direitos fundamentais básicos, como a moradia
+                    digna e a intimidade.
+                </p>
+                <p>
+                    Sob a ótica jurídica, a cena revela o abismo entre a norma constitucional e a realidade prática,
+                    onde a dignidade da pessoa humana é mitigada pela exclusão extrema. A busca por informação em meio à
+                    precariedade ressalta a resiliência do cidadão frente à invisibilidade social e à urgência de
+                    políticas públicas eficazes.
+                </p>
+            </section>
+
+            <section class="legal-section" id="legalSection">
+                <div class="legal-title">
+                    <span>⚖️</span> Fundamentação Jurídica
+                </div>
+                <div class="legal-content">
+                    <ul>
+                        <li>
+                            <strong>Constituição Federal de 1988:</strong>
+                            Art. 1º, III (Dignidade da Pessoa Humana) <br>
+                            Art. 6º (Direito à Moradia)
+                        </li>
+                        <li>
+                            <strong>Declaração Universal dos Direitos Humanos (DUDH):</strong>
+                            Artigo XXV (Direito ao bem-estar)
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer>
+                <div class="credits-grid">
+                    <div class="students-list">
+                        <h4>Alunos (as):</h4>
+                        <p>Antonia Rodrigues; Brenda Melo; Celso Nunes; Maria Emanuelly; Ozailde Leal</p>
+                    </div>
+                    <div class="mentor">
+                        <h4>Orientadores:</h4>
+                        <p>Profº Carlos Alberto Amorim</p>
+                        <p>Profª Drª. Eliana Freire</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <button id="backToTop" title="Voltar ao topo">↑</button>
+
+    <script>
+        // Lógica do Slider Automático
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        const slideInterval = 5000; // Tempo de troca (5 segundos)
+
+        function nextSlide() {
+            // Remove classe active do slide e dot atual
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+
+            // Incrementa o índice
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            // Adiciona classe active ao novo slide e dot
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Inicia o intervalo automático
+        setInterval(nextSlide, slideInterval);
+
+        // Permite clicar nos pontos para trocar
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                currentSlide = index;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            });
+        });
+
+        // Efeito de Scroll Reveal para a seção jurídica
+        const observerOptions = {
+            threshold: 0.2
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        const legalSection = document.getElementById('legalSection');
+        observer.observe(legalSection);
+
+        // Botão Voltar ao Topo
+        const backToTopBtn = document.getElementById('backToTop');
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        };
+
+        backToTopBtn.onclick = function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+    </script>
+</body>
+
+</html>
