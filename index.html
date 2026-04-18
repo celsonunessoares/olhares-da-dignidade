@@ -340,17 +340,23 @@
 
             <div class="image-container">
                 <div class="slider-wrapper">
-                    <!-- Slide 1 -->
+                    <!-- Slide 1: Caminho relativo corrigido com base no seu print -->
                     <div class="slide active">
-                        <img src="/img/homem_banco1.jpg" alt="Pessoa em situação de rua lendo jornal"
+                        <img src="img/homem_banco1.jpg" alt="Pessoa em situação de rua lendo jornal"
                             onerror="handleImageError(this)">
-                        
+                        <div class="img-fallback" style="display:none">
+                            <span>📷</span>
+                            <p>Imagem: img/homem_banco1.jpg não encontrada</p>
+                        </div>
                     </div>
-                    <!-- Slide 2 -->
+                    <!-- Slide 2: Caminho relativo corrigido com base no seu print -->
                     <div class="slide">
-                        <img src="/img/homem_banco2.jpg" alt="Segunda fotografia do projeto"
+                        <img src="img/homem_banco2.jpg" alt="Segunda fotografia do projeto"
                             onerror="handleImageError(this)">
-                        
+                        <div class="img-fallback" style="display:none">
+                            <span>📷</span>
+                            <p>Imagem: img/homem_banco2.jpg não encontrada</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Pontos indicativos -->
