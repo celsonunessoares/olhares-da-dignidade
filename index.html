@@ -13,12 +13,9 @@
     <script>
         /**
          * Função para lidar com erro de carregamento de imagem.
-         * Definida no head para garantir disponibilidade imediata.
          */
         function handleImageError(img) {
-            // Oculta a imagem que falhou
             img.style.display = 'none';
-            // Busca o próximo elemento (o div de fallback) e o exibe
             const fallback = img.nextElementSibling;
             if (fallback) {
                 fallback.style.display = 'flex';
@@ -55,9 +52,8 @@
             padding: 40px 20px;
         }
 
-        /* Estrutura do Banner */
         .banner {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             background: var(--white);
             position: relative;
@@ -105,8 +101,10 @@
             letter-spacing: 2px;
             color: var(--accent-color);
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             opacity: 0.8;
+            text-align: center;
+            display: block;
         }
 
         h1 {
@@ -114,14 +112,20 @@
             font-size: 2.2rem;
             color: var(--accent-color);
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
         }
 
         /* Slider de Imagens */
         .image-container {
             width: 100%;
-            margin: 30px 0;
+            margin: 30px 0 15px 0;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -148,9 +152,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: #4a5568;
-            font-size: 0.9rem;
             background: #edf2f7;
         }
 
@@ -166,23 +167,16 @@
             object-fit: cover;
         }
 
-        /* Estilo para quando a imagem falha */
         .img-fallback {
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            text-align: center;
             width: 100%;
-            height: 100%;
         }
 
-        .img-fallback span {
-            font-size: 3rem;
-        }
-
-        /* Indicadores */
         .slider-dots {
             position: absolute;
             bottom: 15px;
@@ -208,16 +202,25 @@
             transform: scale(1.2);
         }
 
-        /* Texto Principal */
+        /* Seções de Texto */
         .main-text {
-            font-size: 1.1rem;
             color: var(--text-light);
             text-align: justify;
             margin-bottom: 40px;
         }
 
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+
         .main-text p {
             margin-bottom: 20px;
+            font-size: 1.05rem;
         }
 
         /* Seção Jurídica */
@@ -252,17 +255,16 @@
         }
 
         .legal-content li {
-            margin-bottom: 12px;
-            padding-left: 20px;
+            margin-bottom: 15px;
+            padding-left: 25px;
             position: relative;
         }
 
         .legal-content li::before {
-            content: '•';
+            content: '⚖️';
             position: absolute;
             left: 0;
-            color: var(--accent-color);
-            font-weight: bold;
+            font-size: 0.9rem;
         }
 
         /* Rodapé */
@@ -276,7 +278,15 @@
         .credits-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 30px;
+        }
+
+        .expediente-item h4 {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #backToTop {
@@ -295,6 +305,7 @@
             justify-content: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 100;
+            font-size: 1.2rem;
         }
 
         @keyframes fadeIn {
@@ -310,10 +321,6 @@
         }
 
         @media (max-width: 640px) {
-            body {
-                padding: 15px;
-            }
-
             .content {
                 padding: 60px 20px 30px 20px;
             }
@@ -334,67 +341,93 @@
     <main class="banner">
         <div class="content">
             <header>
-                <div class="university-brand">"Olhares da Dignidade"</div>
                 <h1>A Manchete da Invisibilidade</h1>
+                <p class="subtitle">Aprofundando a Análise: Contexto, Direitos e Desafios</p>
             </header>
 
             <div class="image-container">
                 <div class="slider-wrapper">
-                    <!-- Slide 1: Caminho relativo corrigido com base no seu print -->
                     <div class="slide active">
-                        <img src="img/homem_banco1.jpg" alt="Pessoa em situação de rua lendo jornal"
+                        <img src="img/homem_banco1.jpg"
+                            alt="Pessoa em situação de rua lendo jornal na Avenida Frei Serafim"
                             onerror="handleImageError(this)">
                         <div class="img-fallback" style="display:none">
                             <span>📷</span>
-                            <p>Imagem: img/homem_banco1.jpg não encontrada</p>
+                            <p>Imagem 1 não encontrada em: img/homem_banco1.jpg</p>
                         </div>
                     </div>
-                    <!-- Slide 2: Caminho relativo corrigido com base no seu print -->
                     <div class="slide">
-                        <img src="img/homem_banco2.jpg" alt="Segunda fotografia do projeto"
+                        <img src="img/homem_banco2.jpg" alt="Visão alternativa do cidadão no banco público"
                             onerror="handleImageError(this)">
                         <div class="img-fallback" style="display:none">
                             <span>📷</span>
-                            <p>Imagem: img/homem_banco2.jpg não encontrada</p>
+                            <p>Imagem 2 não encontrada em: img/homem_banco2.jpg</p>
                         </div>
                     </div>
                 </div>
-                <!-- Pontos indicativos -->
+
                 <div class="slider-dots">
                     <div class="dot active"></div>
                     <div class="dot"></div>
                 </div>
             </div>
 
+            <!-- Movido para abaixo das imagens -->
+            <div class="university-brand">"Olhares da Dignidade"</div>
+
             <section class="main-text">
                 <p>
-                    A fotografia, registrada na Avenida Frei Serafim em Teresina, retrata a face nua da desigualdade
-                    social e a vulnerabilidade da população em situação de rua. O cidadão, ao utilizar um banco público
-                    para o repouso e a leitura, evidencia a privação de direitos fundamentais básicos, como a moradia
-                    digna e a intimidade.
+                    As imagens registradas na <strong>Avenida Frei Serafim</strong>, em Teresina, não são apenas o
+                    retrato de um momento isolado; elas representam a síntese visual de um fracasso social sistêmico. O
+                    homem que ocupa o banco público, atento à leitura de um jornal, subverte o uso comum do espaço
+                    urbano para afirmar sua existência e, paradoxalmente, denunciar sua própria invisibilidade.
+                </p>
+
+                <h2>Contextualização Local e Impacto Social</h2>
+                <p>
+                    A Avenida Frei Serafim é o coração pulsante de Teresina, um corredor de fluxo intenso onde a pressa
+                    do cotidiano muitas vezes obscurece a visão sobre aqueles que habitam suas margens. A cena retratada
+                    evidencia a face nua da desigualdade: de um lado, a circulação de capital e informação; de outro, a
+                    privação de direitos fundamentais básicos, como a moradia digna e a intimidade.
                 </p>
                 <p>
-                    Sob a ótica jurídica, a cena revela o abismo entre a norma constitucional e a realidade prática,
-                    onde a dignidade da pessoa humana é mitigada pela exclusão extrema. A busca por informação em meio à
-                    precariedade ressalta a resiliência do cidadão frente à invisibilidade social e à urgência de
-                    políticas públicas eficazes.
+                    O ato de ler o jornal, em meio à precariedade, é um gesto de <strong>resiliência</strong>. Ele
+                    demonstra o desejo do cidadão de permanecer conectado a uma sociedade que, estruturalmente, o
+                    empurra para as margens. A "manchete" aqui não é apenas a notícia impressa no papel, mas a própria
+                    existência humana exposta no asfalto, clamando por políticas públicas eficazes e pelo reconhecimento
+                    de sua cidadania.
+                </p>
+
+                <h2>Análise Jurídica e Humanística Aprofundada</h2>
+                <p>
+                    Sob a ótica do Direito, a cena revela o abismo entre a norma constitucional e a realidade prática. A
+                    <strong>Dignidade da Pessoa Humana</strong>, pilar central do nosso ordenamento, é mitigada pela
+                    exclusão extrema. Quando um cidadão é forçado a fazer do espaço público seu espaço de repouso e
+                    intimidade, o Estado falha em sua missão primordial.
+                </p>
+                <p>
+                    A análise se fundamenta no conceito do <strong>"Mínimo Existencial"</strong>, que compreende o
+                    conjunto de bens e utilidades básicas para a sobrevivência digna. A ausência de moradia e de uma
+                    rede de proteção social eficaz fere o núcleo essencial da nossa Constituição, transformando direitos
+                    garantidos em promessas distantes.
                 </p>
             </section>
 
             <section class="legal-section" id="legalSection">
-                <div class="legal-title">
-                    <span style="margin-right:10px">⚖️</span> Fundamentação Jurídica
-                </div>
+                <div class="legal-title">Fundamentação Jurídica</div>
                 <div class="legal-content">
                     <ul>
                         <li>
-                            <strong>Constituição Federal de 1988:</strong>
-                            Art. 1º, III (Dignidade da Pessoa Humana) <br>
-                            Art. 6º (Direito à Moradia)
+                            <strong>Constituição Federal de 1988:</strong><br>
+                            <em>Artigo 1º, inciso III:</em> Estabelece o Princípio da Dignidade da Pessoa Humana como
+                            fundamento da República.<br>
+                            <em>Artigo 6º:</em> Define os Direitos Sociais, destacando o Direito à Moradia como
+                            essencial para a cidadania.
                         </li>
                         <li>
-                            <strong>Declaração Universal dos Direitos Humanos (DUDH):</strong>
-                            Artigo XXV (Direito ao bem-estar)
+                            <strong>Declaração Universal dos Direitos Humanos (DUDH):</strong><br>
+                            <em>Artigo XXV:</em> Garante que todo ser humano tem direito a um padrão de vida capaz de
+                            assegurar saúde, bem-estar, habitação e assistência social.
                         </li>
                     </ul>
                 </div>
@@ -402,24 +435,24 @@
 
             <footer>
                 <div class="credits-grid">
-                    <div>
-                        <h4 style="color:var(--accent-color); font-size:0.8rem; margin-bottom:5px">ALUNOS (AS):</h4>
+                    <div class="expediente-item">
+                        <h4>Alunos (as):</h4>
                         <p>Antonia Rodrigues; Brenda Melo; Celso Nunes; Maria Emanuelly; Ozailde Leal</p>
                     </div>
-                    <div>
-                        <h4 style="color:var(--accent-color); font-size:0.8rem; margin-bottom:5px">ORIENTADORES:</h4>
-                        <p>Profº Carlos Alberto Amorim</p>
-                        <p>Profª Drª. Eliana Freire</p>
+                    <div class="expediente-item">
+                        <h4>Orientadores:</h4>
+                        <p>Prof. Me. Carlos Alberto Amorim</p>
+                        <p>Profª Dra. Eliana Freire</p>
                     </div>
                 </div>
             </footer>
         </div>
     </main>
 
-    <button id="backToTop">↑</button>
+    <button id="backToTop" title="Voltar ao topo">↑</button>
 
     <script>
-        // Lógica do carrossel e outros efeitos interativos
+        // Lógica do carrossel
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -449,6 +482,7 @@
             });
         });
 
+        // Efeito de revelação ao rolar a página (Scroll Reveal)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -460,12 +494,12 @@
         const legal = document.getElementById('legalSection');
         if (legal) observer.observe(legal);
 
+        // Botão voltar ao topo
         const btn = document.getElementById('backToTop');
         window.onscroll = () => {
-            if (btn) {
-                btn.style.display = (window.scrollY > 300) ? 'flex' : 'none';
-            }
+            if (btn) btn.style.display = (window.scrollY > 400) ? 'flex' : 'none';
         };
+
         if (btn) {
             btn.onclick = () => window.scrollTo({
                 top: 0,
