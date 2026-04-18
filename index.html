@@ -9,6 +9,23 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
+
+    <script>
+        /**
+         * Função para lidar com erro de carregamento de imagem.
+         * Definida no head para garantir disponibilidade imediata.
+         */
+        function handleImageError(img) {
+            // Oculta a imagem que falhou
+            img.style.display = 'none';
+            // Busca o próximo elemento (o div de fallback) e o exibe
+            const fallback = img.nextElementSibling;
+            if (fallback) {
+                fallback.style.display = 'flex';
+            }
+        }
+    </script>
+
     <style>
         :root {
             --primary-bg: #f4f7f6;
@@ -101,7 +118,7 @@
             font-weight: 700;
         }
 
-        /* Slider de Imagens - Ajustado para não falhar */
+        /* Slider de Imagens */
         .image-container {
             width: 100%;
             margin: 30px 0;
@@ -110,8 +127,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             position: relative;
             aspect-ratio: 16 / 10;
-            background: #e2e8f0;
-            /* Cor de fundo caso a imagem falhe */
+            background: #cbd5e0;
         }
 
         .slider-wrapper {
@@ -127,8 +143,15 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 1s ease-in-out;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #4a5568;
+            font-size: 0.9rem;
+            background: #edf2f7;
         }
 
         .slide.active {
@@ -141,6 +164,22 @@
             height: 100%;
             display: block;
             object-fit: cover;
+        }
+
+        /* Estilo para quando a imagem falha */
+        .img-fallback {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-fallback span {
+            font-size: 3rem;
         }
 
         /* Indicadores */
@@ -301,15 +340,26 @@
 
             <div class="image-container">
                 <div class="slider-wrapper">
-                    <!-- Slide 1: Note o nome exato do arquivo -->
+                    <!-- Slide 1 -->
                     <div class="slide active">
-                        <img src="/img/homem1.png" alt="Pessoa em situação de rua lendo jornal">
+                        <img src="/img/homem1.png" alt="Pessoa em situação de rua lendo jornal"
+                            onerror="handleImageError(this)">
+                        <div class="img-fallback" style="display:none">
+                            <span>📷</span>
+                            <p>Imagem: homem homem1.png não encontrada</p>
+                        </div>
                     </div>
-                    <!-- Slide 2: Use o segundo arquivo aqui -->
+                    <!-- Slide 2 -->
                     <div class="slide">
-                        <img src="/img/homem2.png" alt="Segunda fotografia do projeto">
+                        <img src="/img/homem2.png" alt="Segunda fotografia do projeto"
+                            onerror="handleImageError(this)">
+                        <div class="img-fallback" style="display:none">
+                            <span>📷</span>
+                            <p>Imagem: homem2.png não encontrada</p>
+                        </div>
                     </div>
                 </div>
+                <!-- Pontos indicativos -->
                 <div class="slider-dots">
                     <div class="dot active"></div>
                     <div class="dot"></div>
@@ -369,6 +419,7 @@
     <button id="backToTop">↑</button>
 
     <script>
+        // Lógica do carrossel e outros efeitos interativos
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -411,12 +462,16 @@
 
         const btn = document.getElementById('backToTop');
         window.onscroll = () => {
-            btn.style.display = (window.scrollY > 300) ? 'flex' : 'none';
+            if (btn) {
+                btn.style.display = (window.scrollY > 300) ? 'flex' : 'none';
+            }
         };
-        btn.onclick = () => window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        if (btn) {
+            btn.onclick = () => window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     </script>
 </body>
 
